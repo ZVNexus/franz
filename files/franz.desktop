@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=5.1.0
+Name=Franz
+Comment=Franz is a free messaging app for services like WhatsApp, Slack, Messenger and many more.
+Exec=env franz -- %u
+Icon=franz
+Terminal=false
+StartupWMClass=FranzDesktop
+Type=Application
+Categories=Games;Wine
+Keywords=franz;
+X-GNOME-UsesNotifications=true

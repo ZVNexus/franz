@@ -1,0 +1,38 @@
+name       : franz
+version    : 5.1.0
+release    : 1
+networking : yes
+component  : network.im
+source     :
+    - https://github.com/meetfranz/franz/archive/v5.1.0.tar.gz : 97228acea4a883c86c7b44c5ab526a006f8009c65932a6dda0feaa5328b68993
+license    :
+    - Apache-2.0
+summary    :
+    - franz (messanging application)
+description: |
+    Franz is a free messaging app for services like WhatsApp, Slack, Messenger and many more.
+builddeps  :
+    - git
+    - nodejs
+    - libxkbfile-devel
+    - libx11-devel
+    - libxext-devel
+setup      : |
+    npx lerna bootstrap
+build      : |
+    npm run build
+install    : |
+    install -dm00644                                $installdir/usr/bin/
+    install -dm00644                                $installdir/usr/lib/franz/
+    cp -R   out/linux-unpacked/*                    $installdir/usr/lib/franz/
+    ln -s   /usr/lib/franz/franz                    $installdir/usr/bin/franz
+
+    # Install icons
+    for icon_size in 16 32 48 128 256
+    do
+        install -D -m00644 $pkgfiles/icon_${icon_size}x${icon_size}.png $installdir/usr/share/icons/hicolor/${icon_size}x${icon_size}/apps/franz.png
+    done
+
+    # Desktop File
+    rm -f $installdir/usr/share/applications/franz.desktop
+    install -D -m00644 $pkgfiles/franz.desktop $installdir/usr/share/applications/franz.desktop
